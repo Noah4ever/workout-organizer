@@ -1,20 +1,36 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from "react";
+import { StatusBar, View } from "react-native";
+import Header from "./components/header/Header";
+import Workout from "./components/workout/Workout";
 
 export default function App() {
+  const [workoutList, setWorkoutList] = useState([
+    {
+      day: "31.12.2022",
+      id: 0,
+      workout: [
+        {
+          exercise: "pushup",
+          set: [
+            {
+              repetitions: 10,
+              weight: 0,
+            },
+            {
+              repetitions: 10,
+              weight: 0,
+            },
+          ],
+        },
+      ],
+    },
+  ]);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View>
+      <StatusBar backgroundColor="#000" barStyle="light-content" />
+      <Header />
+      <Workout workoutList={workoutList} setWorkoutList={setWorkoutList} />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
