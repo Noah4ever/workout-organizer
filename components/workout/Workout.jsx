@@ -1,137 +1,124 @@
 import { useState } from "react";
-import { View, Text, Button, StyleSheet, Image } from "react-native";
+import { View, Text, Button, StyleSheet } from "react-native";
 import globalStyles from "../../styles/Style.js";
+import uuid from "react-native-uuid";
 
-import WorkoutExercise from "./WorkoutExercixe.jsx";
+import Exercise from "./Exercise.jsx";
 
-/*
-  * workoutList =
-  [
-   {
-     "day": "",
-     "workout": [
-        {
-          "exercise": "",
-          "set": [
-            {
-              "repetitions": 0,
-              "weight": 0
-           }
-          ]
-        }
-      ]
-    }
-  ]
-  *
-*/
+export default function Workout({ currentWorkout, exerciseList }) {
+  const [workout, setWorkout] = useState({});
 
-export default function Workout({ workoutList, setWorkoutList }) {
-  function padTo2Digits(num) {
-    return num.toString().padStart(2, "0");
-  }
-  function formatDate(date) {
-    return [
-      padTo2Digits(date.getDate()),
-      padTo2Digits(date.getMonth() + 1),
-      date.getFullYear(),
-    ].join(".");
-  }
-
-  function addWorkout() {
-    const newWorkout = {
-      day: formatDate(new Date()),
-      id: workoutList.length,
-      workout: [],
-    };
-    setWorkoutList((currentWorkoutList) => [newWorkout, ...currentWorkoutList]);
-  }
-
-  function addExercise(dayIndex) {
-    setWorkoutList((currentWorkoutList) => {
-      currentWorkoutList[dayIndex].workout.push({
-        exercise: "pullup",
-        set: [],
-      });
-      return [...currentWorkoutList];
+  const [count, setCount] = useState(0);
+  function updateCount() {
+    setCount((currentCount) => {
+      return currentCount + 1;
     });
   }
-  function deleteExercise(exercise) {}
-  function updateExercise(exercise, newExercise) {}
-  function addRep(rep) {}
-  function deleteRep(rep) {}
-  function updateRep(rep, newRep) {}
 
-  const [exerciseList, setExerciseList] = useState([
-    {
-      label: "Pushup",
-      value: "pushup",
-      icon: () => (
-        <Image
-          source={require("../../assets/favicon.png")}
-          style={styles.exerciseIcon}
-        />
-      ),
-    },
-    {
-      label: "Pullup",
-      value: "pullup",
-      icon: () => (
-        <Image
-          source={require("../../assets/favicon.png")}
-          style={styles.exerciseIcon}
-        />
-      ),
-    },
-    {
-      label: "Leg Raises",
-      value: "leg raises",
-      icon: () => (
-        <Image
-          source={require("../../assets/favicon.png")}
-          style={styles.exerciseIcon}
-        />
-      ),
-    },
-  ]);
+  /* EXERCISE */
+  function addExercise() {
+    setWorkout((curWorkout) => {
+      const newExercise = {
+        id: uuid.v4(),
+        exercise: "",
+        set: [],
+      };
+      curWorkout.workout.push(newExercise);
+      return curWorkout;
+    });
+  }
+  function deleteExercise(exerciseIndex) {
+    setWorkout((curWorkout) => {
+      curWorkout.workout.splice(exerciseIndex, 1);
+      return curWorkout;
+    });
+  }
+  function updateExercise(exerciseIndex, newExercise) {
+    setWorkout((curWorkout) => {
+      curWorkout.workout[exerciseIndex] = newExercise;
+      return curWorkout;
+    });
+  }
+
+  /*
+   * -----===< REPETITION >===-----
+   */
+
+  /**
+   * Adds a new repetition to exercise state
+   * @param {number} exerciseIndex
+   */
+  function addRepetition(exerciseIndex) {
+    setWorkout((curWorkout) => {
+      // Creates empty repetition
+      const newRepetition = {
+        id: uuid.v4(),
+        value: {
+          repetitions: "",
+          weight: "",
+        },
+      };
+      // Pushes new repetition in exercise set
+      curWorkout.workout[exerciseIndex].set.push(newRepetition);
+      return curWorkout;
+    });
+  }
+  /**
+   * Deletes a repetition from exercise
+   * @param {number} exerciseIndex
+   * @param {number} repIndex
+   */
+  function deleteRepetition(exerciseIndex, repIndex) {
+    setWorkout((curWorkout) => {
+      // Removes exercise in set array with splice()
+      curWorkout.workout[exerciseIndex].set.splice(repIndex, 1);
+      return curWorkout;
+    });
+  }
+  /**
+   * Updates a repetition
+   * @param {number} exerciseIndex
+   * @param {number} repIndex
+   * @param {object} newRep
+   */
+  function updateRepetition(exerciseIndex, repIndex, newRep) {
+    setWorkout((curWorkout) => {
+      // Updates exercise in set
+      curWorkout.workout[exerciseIndex].set[repIndex].value = newRep;
+      return curWorkout;
+    });
+  }
+
   return (
-    <View style={globalStyles.pageContainer}>
-      <Text style={globalStyles.h1}>Workout List</Text>
-      <Button onPress={addWorkout} title="Add Workout" color="#000" />
-      <View>
-        {workoutList?.map((day, index) => {
-          // Only show last 7/14 days or last month
-          return (
-            <View style={styles.workoutContainer} key={index}>
-              <Text style={globalStyles.h3Light}>{day.day}</Text>
-              <Button
-                onPress={() => {
-                  addExercise(index);
-                }}
-                title="Add Exercise"
-                color="#000"
-              />
-              {day?.workout?.map((exercise, index) => {
-                return (
-                  <WorkoutExercise
-                    key={index}
-                    exerciseList={exerciseList}
-                    exercise={exercise}
-                    index={index}
-                  />
-                );
-              })}
-            </View>
-          );
-        })}
-      </View>
+    <View style={styles.workoutContainer}>
+      <Text style={globalStyles.h2Light}>{count}</Text>
+      <Button title="Add Count" onPress={updateCount} />
+      <Text style={globalStyles.h2Light}>{currentWorkout.day}</Text>
+      <Button onPress={addExercise} title="Add Exercise" color="#000" />
+      {currentWorkout?.workout?.map((exercise, exerciseIndex) => {
+        return (
+          <Exercise
+            key={exercise.id}
+            exerciseList={exerciseList}
+            exercise={exercise}
+            exerciseIndex={exerciseIndex}
+            deleteExercise={deleteExercise}
+            updateExercise={updateExercise}
+            addRepetition={addRepetition}
+            updateRepetition={updateRepetition}
+            deleteRepetition={deleteRepetition}
+          />
+        );
+      })}
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   workoutContainer: {
     padding: 5,
     marginTop: 10,
-    borderRadius: 2,
+    borderRadius: 7,
     backgroundColor: "#000",
     color: "#FFF",
   },

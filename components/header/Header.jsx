@@ -4,7 +4,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 export default function Header() {
   return (
     <View style={styles.container}>
-      <Icon name="menu-outline" size={30} color="#FFF" />
+      <Icon name="menu-outline" size={42} color="#FFF" />
     </View>
   );
 }
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
     justifyContent: "center",
     paddingHorizontal: 10,
-    height: 40,
+    height: 52,
   },
   text: {
     color: "white",

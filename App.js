@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { StatusBar, View } from "react-native";
 import Header from "./components/header/Header";
-import Workout from "./components/workout/Workout";
+import WorkoutList from "./components/workout/WorkoutList";
 
 export default function App() {
   const [workoutList, setWorkoutList] = useState([
@@ -10,15 +10,22 @@ export default function App() {
       id: 0,
       workout: [
         {
-          exercise: "pushup",
+          id: 0,
+          exercise: "Pullup",
           set: [
             {
-              repetitions: 10,
-              weight: 0,
+              id: 0,
+              value: {
+                repetitions: 10,
+                weight: 0,
+              },
             },
             {
-              repetitions: 10,
-              weight: 0,
+              id: 1,
+              value: {
+                repetitions: 10,
+                weight: 0,
+              },
             },
           ],
         },
@@ -30,7 +37,7 @@ export default function App() {
     <View>
       <StatusBar backgroundColor="#000" barStyle="light-content" />
       <Header />
-      <Workout workoutList={workoutList} setWorkoutList={setWorkoutList} />
+      <WorkoutList workoutList={workoutList} setWorkoutList={setWorkoutList} />
     </View>
   );
 }
