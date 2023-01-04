@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
-import { View, Text, TextInput, StyleSheet, Button } from "react-native";
-
+import { View, Text, TextInput, StyleSheet}  from "react-native";
+import { Button } from "@rneui/themed";
 import Icon from "react-native-vector-icons/Ionicons";
 import globalStyles from "../../styles/Style";
 
@@ -26,7 +26,7 @@ export default function WorkoutExerciseRepetition({
   console.log(rep);
   function updateRep() {
     const newRep = {
-      repetition: reps.current,
+      repetitions: reps.current,
       weight: weight.current,
     };
     updateRepetition(exerciseIndex, repIndex, newRep);
@@ -61,8 +61,18 @@ export default function WorkoutExerciseRepetition({
         />
         <Text style={globalStyles.h2Light}>kg</Text>
       </View>
-      <Button title="Delete" onPress={deleteRep} color={"black"} />
-      <Button title="Save" onPress={updateRep} color={"black"} />
+      <Button
+        onPress={deleteRep}
+        color={"black"}
+        type="clear"
+        icon={{ name: "trash-outline", type: "ionicon", color: "white" }}
+      />
+      <Button
+        onPress={updateRep}
+        color={"black"}
+        type="clear"
+        icon={{ name: "checkmark-outline", type: "ionicon", color: "white" }}
+      />
     </View>
   );
 }
