@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { StatusBar, View } from "react-native";
 import { Tab, TabView, Text } from "@rneui/themed";
 import Header from "./components/header/Header";
@@ -8,6 +8,14 @@ import WorkoutList from "./components/workout/WorkoutList";
 export default function App() {
   const [index, setIndex] = useState(1);
   const tabItemActiveColor = "black";
+
+  useEffect(()=>{
+   if(index < 0){
+    setIndex(0);
+   }else if(index > 2){
+    setIndex(3)
+   }
+  }, [index])
 
   const [workoutList, setWorkoutList] = useState([
     {
@@ -79,7 +87,7 @@ export default function App() {
         />
       </Tab>
 
-      <TabView value={index} onChange={setIndex} animationType="spring">
+      <TabView value={index} onChange={setIndex} animationType="timing" animationConfig={{duration: 100}}>
         <TabView.Item style={{ backgroundColor: "white", width: "100%" }}>
           <Exercises />
         </TabView.Item>
