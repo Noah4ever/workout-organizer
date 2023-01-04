@@ -6,7 +6,7 @@ import Exercises from "./components/exercises/Exercises";
 import WorkoutList from "./components/workout/WorkoutList";
 
 export default function App() {
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(1);
   const tabItemActiveColor = "black";
 
   const [workoutList, setWorkoutList] = useState([

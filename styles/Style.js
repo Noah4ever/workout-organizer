@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
   pageContainer: {
     paddingHorizontal: 10,
+    paddingVertical: 5,
   },
   h1: {
     fontSize: 24,
