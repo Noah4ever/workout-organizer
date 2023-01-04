@@ -1,28 +1,11 @@
 import { useState } from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
+import { Text } from "@rneui/themed";
+import { Button } from "@rneui/themed";
 import globalStyles from "../../styles/Style.js";
+import cloneDeep from "lodash/cloneDeep";
 
 import Workout from "./Workout.jsx";
-/*
-  * workoutList =
-  [
-   {
-     "day": "",
-     "workout": [
-        {
-          "exercise": "",
-          "set": [
-            {
-              "repetitions": 0,
-              "weight": 0
-           }
-          ]
-        }
-      ]
-    }
-  ]
-  *
-*/
 
 export default function WorkoutList({ workoutList, setWorkoutList }) {
   function padTo2Digits(num) {
@@ -43,7 +26,9 @@ export default function WorkoutList({ workoutList, setWorkoutList }) {
       id: workoutList.length,
       workout: [],
     };
-    setWorkoutList((currentWorkoutList) => [newWorkout, ...currentWorkoutList]);
+    setWorkoutList((currentWorkoutList) => {
+      return cloneDeep([newWorkout, ...currentWorkoutList]);
+    });
   }
 
   const [exerciseList, setExerciseList] = useState([
@@ -60,11 +45,20 @@ export default function WorkoutList({ workoutList, setWorkoutList }) {
       key: 2,
     },
   ]);
-
   return (
     <View style={globalStyles.pageContainer}>
-      <Text style={globalStyles.h1}>Workout List</Text>
-      <Button onPress={addWorkout} title="Add Workout" color="#000" />
+      <Text h1>Workout List</Text>
+      <Button
+        onPress={addWorkout}
+        title="Add Workout"
+        buttonStyle={{ backgroundColor: "#151515" }}
+        containerStyle={{
+          width: 200,
+          marginHorizontal: 100,
+        }}
+        titleStyle={{ color: "white" }}
+        type="outline"
+      />
       <View>
         {workoutList?.map((workout) => {
           // Only show last 7/14 days or last month

@@ -25,6 +25,7 @@ export default function WorkoutExercise({
     deleteExercise(exerciseIndex);
   }
   function updateEx() {
+    console.log("updateEx", exercise);
     updateExercise(exerciseIndex, exercise);
   }
   function addRep() {
@@ -51,7 +52,7 @@ export default function WorkoutExercise({
             save="value"
             search={true}
             searchPlaceholder={"Search"}
-            boxStyles={{ width: 300, borderRadius: 5, borderColor: "gray" }}
+            boxStyles={{ width: 300, borderRadius: 3, borderColor: "gray" }}
             dropdownStyles={{ borderRadius: 5, borderColor: "gray" }}
             dropdownTextStyles={{ color: "white" }}
             inputStyles={{ color: "white", textAlignVertical: "center" }}

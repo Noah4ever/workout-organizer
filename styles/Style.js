@@ -7,6 +7,9 @@ export default StyleSheet.create({
   h1: {
     fontSize: 24,
   },
+  h2: {
+    fontSize: 16,
+  },
   h2Light: {
     fontSize: 16,
     color: "#FFF",
@@ -14,5 +17,11 @@ export default StyleSheet.create({
   h3Light: {
     fontSize: 12,
     color: "#FFF",
+  },
+  textCenter: {
+    textAlign: "center",
+  },
+  textRight: {
+    textAlign: "right",
   },
 });
