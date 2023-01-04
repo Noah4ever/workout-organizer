@@ -9,13 +9,13 @@ export default function App() {
   const [index, setIndex] = useState(1);
   const tabItemActiveColor = "black";
 
-  useEffect(()=>{
-   if(index < 0){
-    setIndex(0);
-   }else if(index > 2){
-    setIndex(3)
-   }
-  }, [index])
+  useEffect(() => {
+    if (index < 0) {
+      setIndex(0);
+    } else if (index > 2) {
+      setIndex(3);
+    }
+  }, [index]);
 
   const [workoutList, setWorkoutList] = useState([
     {
@@ -87,7 +87,12 @@ export default function App() {
         />
       </Tab>
 
-      <TabView value={index} onChange={setIndex} animationType="timing" animationConfig={{duration: 100}}>
+      <TabView
+        value={index}
+        onChange={setIndex}
+        animationType="timing"
+        animationConfig={{ duration: 100 }}
+      >
         <TabView.Item style={{ backgroundColor: "white", width: "100%" }}>
           <Exercises />
         </TabView.Item>

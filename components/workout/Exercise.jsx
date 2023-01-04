@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { View, StyleSheet } from "react-native";
-import { Button }  from "@rneui/themed";
+import { Button } from "@rneui/themed";
 import Icon from "react-native-vector-icons/Ionicons";
 import { SelectList } from "react-native-dropdown-select-list";
 
@@ -55,31 +55,31 @@ export default function WorkoutExercise({
             searchPlaceholder={"Search"}
             boxStyles={{ width: 300, borderRadius: 3, borderColor: "gray" }}
             dropdownStyles={{ borderRadius: 5, borderColor: "gray" }}
-              dropdownTextStyles={{ color: "white" }}
-              inputStyles={{ color: "white", textAlignVertical: "center" }}
-              searchicon={
-                <Icon
-                  name="search-outline"
-                  size={20}
-                  color={"#FFF"}
-                  style={{ marginRight: 7 }}
-                />
-              }
-              closeicon={
-                <Icon name="close-outline" size={20} color={"#FFF"} style={{}} />
-              }
-              arrowicon={
-                <Icon name="chevron-down-outline" size={20} color={"#FFF"} />
-              }
-            />
-          </View>
-          <View>
-            <Button
-              onPress={deleteEx}
-              type="clear"
-              color='black'
-              icon={{ name: "trash-outline", type: "ionicon", color: "white" }}
-            />
+            dropdownTextStyles={{ color: "white" }}
+            inputStyles={{ color: "white", textAlignVertical: "center" }}
+            searchicon={
+              <Icon
+                name="search-outline"
+                size={20}
+                color={"#FFF"}
+                style={{ marginRight: 7 }}
+              />
+            }
+            closeicon={
+              <Icon name="close-outline" size={20} color={"#FFF"} style={{}} />
+            }
+            arrowicon={
+              <Icon name="chevron-down-outline" size={20} color={"#FFF"} />
+            }
+          />
+        </View>
+        <View>
+          <Button
+            onPress={deleteEx}
+            type="clear"
+            color="black"
+            icon={{ name: "trash-outline", type: "ionicon", color: "white" }}
+          />
         </View>
       </View>
 
