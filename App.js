@@ -6,7 +6,7 @@ import WorkoutList from "./components/workout/WorkoutList";
 import { GLOBAL_STYLES } from "./styles/Style";
 
 // TODO:
-/*
+/* 
  - Delete Exercise
  - Clean up code
  - ExercisePage
