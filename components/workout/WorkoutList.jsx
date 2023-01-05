@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { View, StyleSheet } from "react-native";
-import { Text } from "@rneui/themed";
-import { Button } from "@rneui/themed";
-import globalStyles from "../../styles/Style.js";
+import { Text, Button } from "@rneui/themed";
+import { GLOBAL_STYLES } from "../../styles/Style.js";
 import cloneDeep from "lodash/cloneDeep";
 
 import Workout from "./Workout.jsx";
@@ -46,18 +45,13 @@ export default function WorkoutList({ workoutList, setWorkoutList }) {
     },
   ]);
   return (
-    <View style={globalStyles.pageContainer}>
+    <View style={GLOBAL_STYLES.pageContainer}>
       <Text h1>Workout List</Text>
       <Button
         onPress={addWorkout}
         title="Add Workout"
-        buttonStyle={{ backgroundColor: "#151515" }}
-        containerStyle={{
-          width: 200,
-          marginHorizontal: 100,
-        }}
-        titleStyle={{ color: "white" }}
-        type="outline"
+        buttonStyle={{ backgroundColor: GLOBAL_STYLES.COLORS.foreground }}
+        titleStyle={{ color: GLOBAL_STYLES.COLORS.text }}
       />
       <View>
         {workoutList?.map((workout) => {

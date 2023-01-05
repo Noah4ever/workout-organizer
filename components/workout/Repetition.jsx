@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
-import { View, Text, TextInput, StyleSheet}  from "react-native";
+import { View, Text, TextInput, StyleSheet } from "react-native";
 import { Button } from "@rneui/themed";
 import Icon from "react-native-vector-icons/Ionicons";
-import globalStyles from "../../styles/Style";
+import { GLOBAL_STYLES } from "../../styles/Style.js";
 
 export default function WorkoutExerciseRepetition({
   rep,
@@ -34,44 +34,48 @@ export default function WorkoutExerciseRepetition({
 
   return (
     <View style={styles.repetitionContainer}>
-      <Text style={globalStyles.h2Light}>{repIndex + 1}.</Text>
+      <Text style={GLOBAL_STYLES.h2}>{repIndex + 1}.</Text>
       <View style={styles.repetition}>
         <TextInput
           style={styles.TextInput}
           defaultValue={rep.value.repetitions + ""}
           onChangeText={updateReps}
+          onBlur={updateRep}
           maxLength={4}
           keyboardType="numeric"
           placeholder="Reps"
-          placeholderTextColor="#777"
+          placeholderTextColor={GLOBAL_STYLES.COLORS.textMuted}
           textAlign="center"
-          cursorColor={"white"}
+          cursorColor={GLOBAL_STYLES.COLORS.text}
         />
-        <Icon name="close-outline" size={20} color="#FFF" />
+        <Icon
+          name="close-outline"
+          size={20}
+          color={GLOBAL_STYLES.COLORS.text}
+        />
         <TextInput
           style={styles.TextInput}
           defaultValue={rep.value.weight + ""}
           onChangeText={updateWeight}
+          onBlur={updateRep}
           maxLength={5}
           keyboardType="numeric"
           placeholder="Weight"
-          placeholderTextColor="#777"
+          placeholderTextColor={GLOBAL_STYLES.COLORS.textMuted}
           textAlign="center"
-          cursorColor={"white"}
+          cursorColor={GLOBAL_STYLES.COLORS.text}
         />
-        <Text style={globalStyles.h2Light}>kg</Text>
+        <Text style={GLOBAL_STYLES.h2}>kg</Text>
       </View>
       <Button
         onPress={deleteRep}
-        color={"black"}
         type="clear"
-        icon={{ name: "trash-outline", type: "ionicon", color: "white" }}
-      />
-      <Button
-        onPress={updateRep}
-        color={"black"}
-        type="clear"
-        icon={{ name: "checkmark-outline", type: "ionicon", color: "white" }}
+        icon={{
+          name: "trash-outline",
+          type: "ionicon",
+          color: GLOBAL_STYLES.COLORS.text,
+          size: 18,
+        }}
       />
     </View>
   );
@@ -90,13 +94,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   TextInput: {
-    color: "#FFF",
-    borderBottomColor: "#FFF",
+    color: GLOBAL_STYLES.COLORS.text,
+    borderBottomColor: GLOBAL_STYLES.COLORS.text,
     borderBottomWidth: 1,
     marginHorizontal: 5,
     height: 25,
     padding: 0,
     paddingHorizontal: 15,
-    placeholder: "#FFF",
+    placeholder: GLOBAL_STYLES.COLORS.text,
   },
 });

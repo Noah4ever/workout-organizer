@@ -1,11 +1,11 @@
 import { useRef } from "react";
 import { View, StyleSheet } from "react-native";
-import { Button }  from "@rneui/themed";
+import { Button } from "@rneui/themed";
 import Icon from "react-native-vector-icons/Ionicons";
 import { SelectList } from "react-native-dropdown-select-list";
 
-import globalStyles from "../../styles/Style.js";
 import Repetition from "./Repetition.jsx";
+import { GLOBAL_STYLES } from "../../styles/Style.js";
 
 export default function WorkoutExercise({
   exerciseList,
@@ -53,33 +53,49 @@ export default function WorkoutExercise({
             save="value"
             search={true}
             searchPlaceholder={"Search"}
-            boxStyles={{ width: 300, borderRadius: 3, borderColor: "gray" }}
+            boxStyles={{
+              width: 300,
+              borderRadius: 3,
+              borderColor: "gray",
+              marginBottom: 3,
+            }}
             dropdownStyles={{ borderRadius: 5, borderColor: "gray" }}
-              dropdownTextStyles={{ color: "white" }}
-              inputStyles={{ color: "white", textAlignVertical: "center" }}
-              searchicon={
-                <Icon
-                  name="search-outline"
-                  size={20}
-                  color={"#FFF"}
-                  style={{ marginRight: 7 }}
-                />
-              }
-              closeicon={
-                <Icon name="close-outline" size={20} color={"#FFF"} style={{}} />
-              }
-              arrowicon={
-                <Icon name="chevron-down-outline" size={20} color={"#FFF"} />
-              }
-            />
-          </View>
-          <View>
-            <Button
-              onPress={deleteEx}
-              type="clear"
-              color='black'
-              icon={{ name: "trash-outline", type: "ionicon", color: "white" }}
-            />
+            dropdownTextStyles={{ color: GLOBAL_STYLES.COLORS.text }}
+            inputStyles={{
+              color: GLOBAL_STYLES.COLORS.text,
+              textAlignVertical: "center",
+            }}
+            searchicon={
+              <Icon
+                name="search-outline"
+                size={20}
+                color={GLOBAL_STYLES.COLORS.text}
+                style={{ marginRight: 7 }}
+              />
+            }
+            closeicon={
+              <Icon
+                name="close-outline"
+                size={20}
+                color={GLOBAL_STYLES.COLORS.text}
+                style={{}}
+              />
+            }
+            arrowicon={
+              <Icon
+                name="chevron-down-outline"
+                size={20}
+                color={GLOBAL_STYLES.COLORS.text}
+              />
+            }
+          />
+        </View>
+        <View>
+          <Button
+            onPress={deleteEx}
+            type="clear"
+            icon={{ name: "trash-outline", type: "ionicon", color: "black" }}
+          />
         </View>
       </View>
 
@@ -96,7 +112,12 @@ export default function WorkoutExercise({
             />
           );
         })}
-        <Button title="Add rep" color={"black"} onPress={addRep} />
+        <Button
+          title="Add rep"
+          onPress={addRep}
+          buttonStyle={{ backgroundColor: GLOBAL_STYLES.COLORS.foreground }}
+          titleStyle={{ color: GLOBAL_STYLES.COLORS.text }}
+        />
       </View>
     </View>
   );

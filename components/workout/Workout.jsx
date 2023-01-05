@@ -1,15 +1,17 @@
 import { useState } from "react";
-import { View, Button, StyleSheet } from "react-native";
-import { Text } from "@rneui/themed";
+import { View, StyleSheet } from "react-native";
+import { Button, Text } from "@rneui/themed";
 import uuid from "react-native-uuid";
 import cloneDeep from "lodash/cloneDeep";
 import Exercise from "./Exercise.jsx";
+import { GLOBAL_STYLES } from "../../styles/Style.js";
 
 export default function Workout({ currentWorkout, exerciseList }) {
   const [workout, setWorkout] = useState(currentWorkout);
 
   /* EXERCISE */
   function addExercise() {
+    console.log("addEx");
     setWorkout((curWorkout) => {
       let newExercise = {
         id: uuid.v4(),
@@ -26,12 +28,14 @@ export default function Workout({ currentWorkout, exerciseList }) {
     });
   }
   function deleteExercise(exerciseIndex) {
+    console.log("deleteEx");
     setWorkout((curWorkout) => {
       curWorkout.workout.splice(exerciseIndex, 1);
       return cloneDeep(curWorkout);
     });
   }
   function updateExercise(exerciseIndex, newExercise) {
+    console.log("updatedEx");
     setWorkout((curWorkout) => {
       console.log(curWorkout);
       if (curWorkout.workout) {
@@ -44,12 +48,12 @@ export default function Workout({ currentWorkout, exerciseList }) {
   /*
    * -----===< REPETITION >===-----
    */
-
   /**
    * Adds a new repetition to exercise state
    * @param {number} exerciseIndex
    */
   function addRepetition(exerciseIndex) {
+    console.log("addRep");
     setWorkout((curWorkout) => {
       // Creates empty repetition
       const newRepetition = {
@@ -70,6 +74,7 @@ export default function Workout({ currentWorkout, exerciseList }) {
    * @param {number} repIndex
    */
   function deleteRepetition(exerciseIndex, repIndex) {
+    console.log("deleteRep");
     setWorkout((curWorkout) => {
       // Removes exercise in set array with splice()
       curWorkout.workout[exerciseIndex].set.splice(repIndex, 1);
@@ -83,6 +88,7 @@ export default function Workout({ currentWorkout, exerciseList }) {
    * @param {object} newRep
    */
   function updateRepetition(exerciseIndex, repIndex, newRep) {
+    console.log("updateRep");
     setWorkout((curWorkout) => {
       // Updates exercise in set
       curWorkout.workout[exerciseIndex].set[repIndex].value = newRep;
@@ -94,7 +100,12 @@ export default function Workout({ currentWorkout, exerciseList }) {
     <View style={styles.workoutContainer}>
       <Text style={styles.workoutDay}>{workout.day}</Text>
       <View style={styles.exerciseContainer}>
-        <Button onPress={addExercise} title="Add Exercise" color="#000" />
+        <Button
+          onPress={addExercise}
+          title="Add Exercise"
+          buttonStyle={{ backgroundColor: GLOBAL_STYLES.COLORS.foreground }}
+          titleStyle={{ color: GLOBAL_STYLES.COLORS.text }}
+        />
         {workout?.workout?.map((exercise, exerciseIndex) => {
           return (
             <Exercise
@@ -124,16 +135,16 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderRadius: 3,
     borderTopLeftRadius: 0,
-    backgroundColor: "#000",
-    color: "#FFF",
+    backgroundColor: GLOBAL_STYLES.COLORS.foreground,
+    color: "#202020",
   },
   workoutDay: {
     width: 100,
     textAlign: "center",
     borderTopLeftRadius: 3,
     borderTopRightRadius: 3,
-    color: "#EEE",
-    backgroundColor: "#000",
+    color: "#666666",
+    backgroundColor: GLOBAL_STYLES.COLORS.foreground,
   },
   exerciseIcon: {
     width: 25,
