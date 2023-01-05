@@ -109,19 +109,31 @@ export default function App() {
           title="Exercises"
           titleStyle={styles.TabItemTitle}
           containerStyle={styles.TabItemContainer}
-          icon={{ name: "list-outline", type: "ionicon", color: "black" }}
+          icon={{
+            name: "list-outline",
+            type: "ionicon",
+            color: GLOBAL_STYLES.COLORS.text,
+          }}
         />
         <Tab.Item
           title="Workout"
           titleStyle={styles.TabItemTitle}
           containerStyle={styles.TabItemContainer}
-          icon={{ name: "barbell-outline", type: "ionicon", color: "black" }}
+          icon={{
+            name: "barbell-outline",
+            type: "ionicon",
+            color: GLOBAL_STYLES.COLORS.text,
+          }}
         />
         <Tab.Item
           title="Settings"
           titleStyle={styles.TabItemTitle}
           containerStyle={styles.TabItemContainer}
-          icon={{ name: "cog-outline", type: "ionicon", color: "black" }}
+          icon={{
+            name: "cog-outline",
+            type: "ionicon",
+            color: GLOBAL_STYLES.COLORS.text,
+          }}
         />
       </Tab>
     </>
