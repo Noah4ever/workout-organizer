@@ -2,6 +2,7 @@ import { useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { Text, Button } from "@rneui/themed";
 import { GLOBAL_STYLES } from "../../styles/Style.js";
+import uuid from "react-native-uuid";
 import cloneDeep from "lodash/cloneDeep";
 
 import Workout from "./Workout.jsx";
@@ -22,12 +23,19 @@ export default function WorkoutList({ workoutList, setWorkoutList }) {
   function addWorkout() {
     const newWorkout = {
       day: formatDate(new Date()),
-      id: workoutList.length,
+      id: uuid.v4(),
       workout: [],
     };
     setWorkoutList((currentWorkoutList) => {
       return cloneDeep([newWorkout, ...currentWorkoutList]);
     });
+  }
+  function deleteWorkout(workoutIndex) {
+    setWorkoutList((curWorkout) => {
+      curWorkout.splice(workoutIndex, 1);
+      console.log("deleteWorkout", curWorkout)
+      return cloneDeep(curWorkout);
+    })
   }
 
   const [exerciseList, setExerciseList] = useState([
@@ -54,13 +62,15 @@ export default function WorkoutList({ workoutList, setWorkoutList }) {
         titleStyle={{ color: GLOBAL_STYLES.COLORS.text }}
       />
       <View>
-        {workoutList?.map((workout) => {
+        {workoutList?.map((workout, index) => {
           // Only show last 7/14 days or last month
           return (
             <Workout
               key={workout.id}
               currentWorkout={workout}
               exerciseList={exerciseList}
+              deleteWorkout={deleteWorkout}
+              workoutIndex={index}
             />
           );
         })}

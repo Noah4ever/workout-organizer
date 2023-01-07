@@ -6,8 +6,12 @@ import cloneDeep from "lodash/cloneDeep";
 import Exercise from "./Exercise.jsx";
 import { GLOBAL_STYLES } from "../../styles/Style.js";
 
-export default function Workout({ currentWorkout, exerciseList }) {
+export default function Workout({ currentWorkout, exerciseList, deleteWorkout, workoutIndex }) {
   const [workout, setWorkout] = useState(currentWorkout);
+
+  function deleteWork() {
+    deleteWorkout(workoutIndex)
+  }
 
   /* EXERCISE */
   function addExercise() {
@@ -98,7 +102,14 @@ export default function Workout({ currentWorkout, exerciseList }) {
 
   return (
     <View style={styles.workoutContainer}>
-      <Text style={styles.workoutDay}>{workout.day}</Text>
+      <View style={styles.workoutDayContainer}>
+        <Text style={styles.workoutDay}>{workout.day}</Text>
+        <Button
+          onPress={deleteWork}
+          type="clear"
+          icon={{ name: "trash-outline", type: "ionicon", color: "black", size: 18 }}
+        />
+      </View>
       <View style={styles.exerciseContainer}>
         <Button
           onPress={addExercise}
@@ -127,6 +138,15 @@ export default function Workout({ currentWorkout, exerciseList }) {
 }
 
 const styles = StyleSheet.create({
+  workoutDayContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    width: 150,
+    borderTopLeftRadius: 3,
+    borderTopRightRadius: 3,
+    color: "#666666",
+    backgroundColor: GLOBAL_STYLES.COLORS.foreground,
+  },
   workoutContainer: {
     marginTop: 5,
   },
@@ -140,11 +160,8 @@ const styles = StyleSheet.create({
   },
   workoutDay: {
     width: 100,
+    textAlignVertical: "center",
     textAlign: "center",
-    borderTopLeftRadius: 3,
-    borderTopRightRadius: 3,
-    color: "#666666",
-    backgroundColor: GLOBAL_STYLES.COLORS.foreground,
   },
   exerciseIcon: {
     width: 25,
