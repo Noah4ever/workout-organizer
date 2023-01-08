@@ -22,8 +22,8 @@ import Settings from "./components/settings/Settings";
  - SettingsPage
     - Color themes
     - Language
-    - Clearing data
- - Saving and loading data
+    - (Clearing data)
+ - (Saving and loading data)
  - New Design
 */
 
@@ -36,14 +36,13 @@ export default function App() {
     } else if (index > 2) {
       setIndex(3);
     }
-    console.log("App useEffect call")
     loadWorkoutList();
   }, [index]);
 
   async function loadWorkoutList() {
     try {
       const data = await AsyncStorage.getItem("workoutList");
-      console.log("LoadedData: ", data)
+      console.log('Loaded data', data)
       if (data === null) {
         return false;
       } else {

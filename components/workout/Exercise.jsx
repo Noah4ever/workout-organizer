@@ -22,6 +22,8 @@ export default function WorkoutExercise({
     selected.current = value;
   }
 
+  // console.log("exercise:", exercise)
+
   function deleteEx() {
     deleteExercise(exerciseIndex);
   }
@@ -100,7 +102,7 @@ export default function WorkoutExercise({
       </View>
 
       <View>
-        {exercise?.set?.map((rep, index) => {
+        {exercise.set.map((rep, index) => {
           return (
             <Repetition
               key={index}

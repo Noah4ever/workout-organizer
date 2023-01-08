@@ -6,11 +6,12 @@ import cloneDeep from "lodash/cloneDeep";
 import Exercise from "./Exercise.jsx";
 import { GLOBAL_STYLES } from "../../styles/Style.js";
 
-export default function Workout({ currentWorkout, exerciseList, deleteWorkout, workoutIndex, saveWorkoutList }) {
+export default function Workout({ currentWorkout, exerciseList, deleteWorkout, workoutIndex, saveWorkoutList, updateWorkout }) {
   const [workout, setWorkout] = useState(currentWorkout);
 
   useEffect(() => {
-    console.log("useEffect call")
+    // console.log("workout", workout);
+    updateWorkout(workoutIndex, workout)
     saveWorkoutList()
   }, [workout])
 

@@ -11,7 +11,6 @@ import Workout from "./Workout.jsx";
 export default function WorkoutList({ workoutList, setWorkoutList, exerciseList }) {
 
   useEffect(() => {
-    console.log("workoutList useEffect")
     saveWorkoutList()
   }, [workoutList])
 
@@ -43,8 +42,13 @@ export default function WorkoutList({ workoutList, setWorkoutList, exerciseList 
   function deleteWorkout(workoutIndex) {
     setWorkoutList((curWorkout) => {
       curWorkout.splice(workoutIndex, 1);
-      console.log("deleteWorkout", curWorkout)
       return cloneDeep(curWorkout);
+    })
+  }
+  function updateWorkout(workoutIndex, newWorkout) {
+    setWorkoutList((curWorkout) => {
+      curWorkout[workoutIndex] = newWorkout;
+      return cloneDeep(curWorkout)
     })
   }
 
@@ -54,7 +58,6 @@ export default function WorkoutList({ workoutList, setWorkoutList, exerciseList 
         return
       }
       await AsyncStorage.setItem("workoutList", JSON.stringify(workoutList)).then(() => {
-        console.log("SavedData: ", workoutList)
       })
     } catch (error) {
       console.log("Error while saving data with AsyncStorage! ERROR: ", error)
@@ -79,6 +82,7 @@ export default function WorkoutList({ workoutList, setWorkoutList, exerciseList 
             currentWorkout={item}
             exerciseList={exerciseList}
             deleteWorkout={deleteWorkout}
+            updateWorkout={updateWorkout}
             workoutIndex={index}
             saveWorkoutList={saveWorkoutList}
           />
