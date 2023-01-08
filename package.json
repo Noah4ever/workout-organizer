@@ -23,6 +23,7 @@
     "react-native-element": "^1.2.1",
     "react-native-uuid": "^2.0.1",
     "react-native-vector-icons": "^9.2.0",
+    "react-native-wheel-color-picker": "^1.2.0",
     "sass": "^1.57.1",
     "uuid": "^9.0.0"
   },

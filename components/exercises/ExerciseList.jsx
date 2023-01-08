@@ -1,9 +1,6 @@
-import { useState } from "react";
 import { FlatList, View } from "react-native";
-import { Text, Input, ListItem, Button } from "@rneui/themed";
+import { Text, Input, Button } from "@rneui/themed";
 import Icon from "react-native-vector-icons/Ionicons";
-import uuid from "react-native-uuid";
-import cloneDeep from "lodash/cloneDeep";
 
 import { GLOBAL_STYLES } from "../../styles/Style.js";
 import Exercise from "./Exercise.jsx";

@@ -27,7 +27,7 @@ import { GLOBAL_STYLES } from "./styles/Style";
     - Language
     - x Clearing data
  - x Saving and loading data
- - New Design
+ - New cool modern Design
 */
 
 export default function App() {

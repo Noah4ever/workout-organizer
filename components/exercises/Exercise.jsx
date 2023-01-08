@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { View, Text } from "react-native";
 import { ListItem, Overlay, Button, Input } from "@rneui/themed";
 import Icon from "react-native-vector-icons/Ionicons";
+import ColorPicker from "react-native-wheel-color-picker";
 
 import { GLOBAL_STYLES } from "../../styles/Style";
 
@@ -67,6 +68,19 @@ export default function Exercise({ exercise, exerciseIndex, updateExercise }) {
           }}
           placeholder="Exercise name"
         />
+        <View>
+          <ColorPicker
+            gapSize={4}
+            color={exerciseColor.current}
+            onColorChangeComplete={(newColor) => {
+              exerciseColor.current = newColor;
+            }}
+            style={{
+              marginTop: 0,
+            }}
+          />
+        </View>
+
         <Button
           title="Update"
           type="clear"
