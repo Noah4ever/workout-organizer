@@ -23,7 +23,6 @@ export default function WorkoutExerciseRepetition({
   function deleteRep() {
     deleteRepetition(exerciseIndex, repIndex);
   }
-  console.log(rep);
   function updateRep() {
     const newRep = {
       repetitions: reps.current,

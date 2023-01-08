@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { Button, Text } from "@rneui/themed";
 import uuid from "react-native-uuid";
@@ -6,8 +6,14 @@ import cloneDeep from "lodash/cloneDeep";
 import Exercise from "./Exercise.jsx";
 import { GLOBAL_STYLES } from "../../styles/Style.js";
 
-export default function Workout({ currentWorkout, exerciseList, deleteWorkout, workoutIndex }) {
+export default function Workout({ currentWorkout, exerciseList, deleteWorkout, workoutIndex, saveWorkoutList }) {
   const [workout, setWorkout] = useState(currentWorkout);
+
+  useEffect(() => {
+    console.log("useEffect call")
+    saveWorkoutList()
+  }, [workout])
+
 
   function deleteWork() {
     deleteWorkout(workoutIndex)
@@ -15,7 +21,7 @@ export default function Workout({ currentWorkout, exerciseList, deleteWorkout, w
 
   /* EXERCISE */
   function addExercise() {
-    console.log("addEx");
+    // console.log("addEx");
     setWorkout((curWorkout) => {
       let newExercise = {
         id: uuid.v4(),
@@ -27,19 +33,18 @@ export default function Workout({ currentWorkout, exerciseList, deleteWorkout, w
       } else {
         curWorkout.workout = [newExercise];
       }
-      console.log("unshift", curWorkout);
       return cloneDeep(curWorkout);
     });
   }
   function deleteExercise(exerciseIndex) {
-    console.log("deleteEx");
+    // console.log("deleteEx");
     setWorkout((curWorkout) => {
       curWorkout.workout.splice(exerciseIndex, 1);
       return cloneDeep(curWorkout);
     });
   }
   function updateExercise(exerciseIndex, newExercise) {
-    console.log("updatedEx");
+    // console.log("updatedEx");
     setWorkout((curWorkout) => {
       console.log(curWorkout);
       if (curWorkout.workout) {
@@ -57,7 +62,7 @@ export default function Workout({ currentWorkout, exerciseList, deleteWorkout, w
    * @param {number} exerciseIndex
    */
   function addRepetition(exerciseIndex) {
-    console.log("addRep");
+    // console.log("addRep");
     setWorkout((curWorkout) => {
       // Creates empty repetition
       const newRepetition = {
@@ -78,7 +83,7 @@ export default function Workout({ currentWorkout, exerciseList, deleteWorkout, w
    * @param {number} repIndex
    */
   function deleteRepetition(exerciseIndex, repIndex) {
-    console.log("deleteRep");
+    // console.log("deleteRep");
     setWorkout((curWorkout) => {
       // Removes exercise in set array with splice()
       curWorkout.workout[exerciseIndex].set.splice(repIndex, 1);
@@ -92,7 +97,7 @@ export default function Workout({ currentWorkout, exerciseList, deleteWorkout, w
    * @param {object} newRep
    */
   function updateRepetition(exerciseIndex, repIndex, newRep) {
-    console.log("updateRep");
+    // console.log("updateRep");
     setWorkout((curWorkout) => {
       // Updates exercise in set
       curWorkout.workout[exerciseIndex].set[repIndex].value = newRep;

@@ -1,14 +1,21 @@
 import { useState, useEffect } from "react";
 import { StatusBar, StyleSheet } from "react-native";
+import { LinearGradient } from "expo-linear-gradient"
 import { Tab, TabView, Text } from "@rneui/themed";
 import Exercises from "./components/exercises/Exercises";
 import WorkoutList from "./components/workout/WorkoutList";
 import { GLOBAL_STYLES } from "./styles/Style";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Settings from "./components/settings/Settings";
 
 // TODO:
 /*
- - (Delete Exercise)
+ - x Delete Exercise
+ - x Add scrollbar to workoutlist
  - Clean up code
+ - Give name to workout and filter searchbar to workoutlist page
+ - Changeable day
+ - Create custom dropdown or find better one (ReactNativeElements has one)
  - ExercisePage
     - Create/Update/Delete exercises
     - Add icons to exercises
@@ -29,34 +36,38 @@ export default function App() {
     } else if (index > 2) {
       setIndex(3);
     }
+    console.log("App useEffect call")
+    loadWorkoutList();
   }, [index]);
 
-  const [workoutList, setWorkoutList] = useState([
+  async function loadWorkoutList() {
+    try {
+      const data = await AsyncStorage.getItem("workoutList");
+      console.log("LoadedData: ", data)
+      if (data === null) {
+        return false;
+      } else {
+        setWorkoutList(JSON.parse(data));
+      }
+    } catch (error) {
+      console.log("Error while loading data from AsyncStorage! ERROR: ", error)
+    }
+  }
+
+  const [workoutList, setWorkoutList] = useState(null);
+
+  const [exerciseList, setExerciseList] = useState([
     {
-      day: "31.12.2022",
-      id: 0,
-      workout: [
-        {
-          id: 0,
-          exercise: "Pullup",
-          set: [
-            {
-              id: 0,
-              value: {
-                repetitions: 10,
-                weight: 0,
-              },
-            },
-            {
-              id: 1,
-              value: {
-                repetitions: 10,
-                weight: 0,
-              },
-            },
-          ],
-        },
-      ],
+      value: "Pushup",
+      key: 0,
+    },
+    {
+      value: "Pullup",
+      key: 1,
+    },
+    {
+      value: "Leg Raises",
+      key: 2,
     },
   ]);
 
@@ -68,7 +79,8 @@ export default function App() {
         value={index}
         onChange={setIndex}
         animationType="timing"
-        animationConfig={{ duration: 100 }}>
+        disableSwipe={true}
+        animationConfig={{ duration: 250 }}>
         <TabView.Item
           style={{
             backgroundColor: GLOBAL_STYLES.COLORS.background,
@@ -84,6 +96,8 @@ export default function App() {
           <WorkoutList
             workoutList={workoutList}
             setWorkoutList={setWorkoutList}
+            exerciseList={exerciseList}
+            setExerciseList={setExerciseList}
           />
         </TabView.Item>
         <TabView.Item
@@ -91,14 +105,26 @@ export default function App() {
             backgroundColor: GLOBAL_STYLES.COLORS.background,
             width: "100%",
           }}>
-          <Text h1>Settings</Text>
+          <Settings />
         </TabView.Item>
       </TabView>
+
+      <LinearGradient
+        colors={['transparent', 'transparent', '#000000']}
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          width: '100%',
+          height: 150
+        }}
+      />
+
       <Tab
         value={index}
         onChange={(e) => setIndex(e)}
         containerStyle={{
-          backgroundColor: "white",
+          backgroundColor: GLOBAL_STYLES.COLORS.foreground,
         }}
         indicatorStyle={{
           backgroundColor: GLOBAL_STYLES.COLORS.accent,
@@ -136,9 +162,11 @@ export default function App() {
           }}
         />
       </Tab>
+
     </>
   );
 }
+
 const styles = StyleSheet.create({
   TabItemTitle: {
     fontSize: 12,

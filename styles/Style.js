@@ -9,7 +9,7 @@ const COLORS = {
 };
 
 export const GLOBAL_STYLES = StyleSheet.create({
-  COLORS,
+  COLORS, // Global colors
   pageContainer: {
     paddingHorizontal: 10,
     paddingVertical: 5,

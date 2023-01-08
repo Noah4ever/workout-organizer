@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { useEffect, useState } from "react";
+import { View, StyleSheet, FlatList } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Text, Button } from "@rneui/themed";
 import { GLOBAL_STYLES } from "../../styles/Style.js";
 import uuid from "react-native-uuid";
@@ -7,7 +8,13 @@ import cloneDeep from "lodash/cloneDeep";
 
 import Workout from "./Workout.jsx";
 
-export default function WorkoutList({ workoutList, setWorkoutList }) {
+export default function WorkoutList({ workoutList, setWorkoutList, exerciseList }) {
+
+  useEffect(() => {
+    console.log("workoutList useEffect")
+    saveWorkoutList()
+  }, [workoutList])
+
   function padTo2Digits(num) {
     return num.toString().padStart(2, "0");
   }
@@ -27,6 +34,9 @@ export default function WorkoutList({ workoutList, setWorkoutList }) {
       workout: [],
     };
     setWorkoutList((currentWorkoutList) => {
+      if (currentWorkoutList === null) {
+        return [newWorkout]
+      }
       return cloneDeep([newWorkout, ...currentWorkoutList]);
     });
   }
@@ -38,20 +48,19 @@ export default function WorkoutList({ workoutList, setWorkoutList }) {
     })
   }
 
-  const [exerciseList, setExerciseList] = useState([
-    {
-      value: "Pushup",
-      key: 0,
-    },
-    {
-      value: "Pullup",
-      key: 1,
-    },
-    {
-      value: "Leg Raises",
-      key: 2,
-    },
-  ]);
+  async function saveWorkoutList() {
+    try {
+      if (!workoutList) {
+        return
+      }
+      await AsyncStorage.setItem("workoutList", JSON.stringify(workoutList)).then(() => {
+        console.log("SavedData: ", workoutList)
+      })
+    } catch (error) {
+      console.log("Error while saving data with AsyncStorage! ERROR: ", error)
+    }
+  }
+
   return (
     <View style={GLOBAL_STYLES.pageContainer}>
       <Text h1>Workout List</Text>
@@ -61,20 +70,20 @@ export default function WorkoutList({ workoutList, setWorkoutList }) {
         buttonStyle={{ backgroundColor: GLOBAL_STYLES.COLORS.foreground }}
         titleStyle={{ color: GLOBAL_STYLES.COLORS.text }}
       />
-      <View>
-        {workoutList?.map((workout, index) => {
-          // Only show last 7/14 days or last month
-          return (
-            <Workout
-              key={workout.id}
-              currentWorkout={workout}
-              exerciseList={exerciseList}
-              deleteWorkout={deleteWorkout}
-              workoutIndex={index}
-            />
-          );
-        })}
-      </View>
+      {workoutList != null ? <FlatList
+        ListFooterComponent={<View style={{ height: 100 }}></View>}
+        data={workoutList}
+        renderItem={({ item, index }) => (
+          <Workout
+            key={item.id}
+            currentWorkout={item}
+            exerciseList={exerciseList}
+            deleteWorkout={deleteWorkout}
+            workoutIndex={index}
+            saveWorkoutList={saveWorkoutList}
+          />
+        )}
+      /> : ""}
     </View>
   );
 }

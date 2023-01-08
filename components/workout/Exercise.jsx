@@ -26,7 +26,7 @@ export default function WorkoutExercise({
     deleteExercise(exerciseIndex);
   }
   function updateEx() {
-    console.log("updateEx", exercise);
+    // console.log("updateEx", exercise);
     updateExercise(exerciseIndex, exercise);
   }
   function addRep() {
