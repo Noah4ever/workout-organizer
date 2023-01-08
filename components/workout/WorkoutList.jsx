@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Text, Button } from "@rneui/themed";
 import { GLOBAL_STYLES } from "../../styles/Style.js";
 import uuid from "react-native-uuid";
@@ -8,11 +8,14 @@ import cloneDeep from "lodash/cloneDeep";
 
 import Workout from "./Workout.jsx";
 
-export default function WorkoutList({ workoutList, setWorkoutList, exerciseList }) {
-
+export default function WorkoutList({
+  workoutList,
+  setWorkoutList,
+  exerciseList,
+}) {
   useEffect(() => {
-    saveWorkoutList()
-  }, [workoutList])
+    saveWorkoutList();
+  }, [workoutList]);
 
   function padTo2Digits(num) {
     return num.toString().padStart(2, "0");
@@ -34,33 +37,35 @@ export default function WorkoutList({ workoutList, setWorkoutList, exerciseList 
     };
     setWorkoutList((currentWorkoutList) => {
       if (currentWorkoutList === null) {
-        return [newWorkout]
+        return [newWorkout];
       }
       return cloneDeep([newWorkout, ...currentWorkoutList]);
     });
   }
   function deleteWorkout(workoutIndex) {
-    setWorkoutList((curWorkout) => {
-      curWorkout.splice(workoutIndex, 1);
-      return cloneDeep(curWorkout);
-    })
+    setWorkoutList((curWorkoutList) => {
+      curWorkoutList.splice(workoutIndex, 1);
+      return cloneDeep(curWorkoutList);
+    });
   }
   function updateWorkout(workoutIndex, newWorkout) {
-    setWorkoutList((curWorkout) => {
-      curWorkout[workoutIndex] = newWorkout;
-      return cloneDeep(curWorkout)
-    })
+    setWorkoutList((curWorkoutList) => {
+      curWorkoutList[workoutIndex] = newWorkout;
+      return cloneDeep(curWorkoutList);
+    });
   }
 
   async function saveWorkoutList() {
     try {
       if (!workoutList) {
-        return
+        return;
       }
-      await AsyncStorage.setItem("workoutList", JSON.stringify(workoutList)).then(() => {
-      })
+      await AsyncStorage.setItem(
+        "workoutList",
+        JSON.stringify(workoutList)
+      ).then(() => {});
     } catch (error) {
-      console.log("Error while saving data with AsyncStorage! ERROR: ", error)
+      console.log("Error while saving data with AsyncStorage! ERROR: ", error);
     }
   }
 
@@ -73,21 +78,25 @@ export default function WorkoutList({ workoutList, setWorkoutList, exerciseList 
         buttonStyle={{ backgroundColor: GLOBAL_STYLES.COLORS.foreground }}
         titleStyle={{ color: GLOBAL_STYLES.COLORS.text }}
       />
-      {workoutList != null ? <FlatList
-        ListFooterComponent={<View style={{ height: 100 }}></View>}
-        data={workoutList}
-        renderItem={({ item, index }) => (
-          <Workout
-            key={item.id}
-            currentWorkout={item}
-            exerciseList={exerciseList}
-            deleteWorkout={deleteWorkout}
-            updateWorkout={updateWorkout}
-            workoutIndex={index}
-            saveWorkoutList={saveWorkoutList}
-          />
-        )}
-      /> : ""}
+      {workoutList != null ? (
+        <FlatList
+          ListFooterComponent={<View style={{ height: 100 }}></View>}
+          data={workoutList}
+          renderItem={({ item, index }) => (
+            <Workout
+              key={item.id}
+              currentWorkout={item}
+              exerciseList={exerciseList}
+              deleteWorkout={deleteWorkout}
+              updateWorkout={updateWorkout}
+              workoutIndex={index}
+              saveWorkoutList={saveWorkoutList}
+            />
+          )}
+        />
+      ) : (
+        ""
+      )}
     </View>
   );
 }

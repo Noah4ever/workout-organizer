@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 const COLORS = {
   text: "#0F1012",
   textMuted: "#CDD0D4",
-  accent: "#F0A43A",
+  accent: "#28a99e",
   background: "#0F1012",
   foreground: "#F2F7FF",
 };
@@ -11,7 +11,7 @@ const COLORS = {
 export const GLOBAL_STYLES = StyleSheet.create({
   COLORS, // Global colors
   pageContainer: {
-    paddingHorizontal: 10,
+    // paddingHorizontal: 10,
     paddingVertical: 5,
   },
   h1: {

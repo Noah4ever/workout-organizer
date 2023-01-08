@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 import { StatusBar, StyleSheet } from "react-native";
-import { LinearGradient } from "expo-linear-gradient"
 import { Tab, TabView, Text } from "@rneui/themed";
-import Exercises from "./components/exercises/Exercises";
-import WorkoutList from "./components/workout/WorkoutList";
-import { GLOBAL_STYLES } from "./styles/Style";
+import { LinearGradient } from "expo-linear-gradient";
+import uuid from "react-native-uuid";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import ExerciseList from "./components/exercises/ExerciseList";
+import WorkoutList from "./components/workout/WorkoutList";
 import Settings from "./components/settings/Settings";
+
+import { GLOBAL_STYLES } from "./styles/Style";
 
 // TODO:
 /*
@@ -22,13 +25,13 @@ import Settings from "./components/settings/Settings";
  - SettingsPage
     - Color themes
     - Language
-    - (Clearing data)
- - (Saving and loading data)
+    - x Clearing data
+ - x Saving and loading data
  - New Design
 */
 
 export default function App() {
-  const [index, setIndex] = useState(1);
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
     if (index < 0) {
@@ -42,14 +45,14 @@ export default function App() {
   async function loadWorkoutList() {
     try {
       const data = await AsyncStorage.getItem("workoutList");
-      console.log('Loaded data', data)
+      console.log("Loaded data", data);
       if (data === null) {
         return false;
       } else {
         setWorkoutList(JSON.parse(data));
       }
     } catch (error) {
-      console.log("Error while loading data from AsyncStorage! ERROR: ", error)
+      console.log("Error while loading data from AsyncStorage! ERROR: ", error);
     }
   }
 
@@ -57,16 +60,22 @@ export default function App() {
 
   const [exerciseList, setExerciseList] = useState([
     {
-      value: "Pushup",
-      key: 0,
+      name: "Pushup",
+      color: "#2f9fb4",
+      icon: "barbell-outline",
+      id: uuid.v4(),
     },
     {
-      value: "Pullup",
-      key: 1,
+      name: "Pullup",
+      color: "#a690be",
+      icon: "barbell-outline",
+      id: uuid.v4(),
     },
     {
-      value: "Leg Raises",
-      key: 2,
+      name: "Leg Raises",
+      color: "#7a4d4a",
+      icon: "barbell-outline",
+      id: uuid.v4(),
     },
   ]);
 
@@ -85,7 +94,10 @@ export default function App() {
             backgroundColor: GLOBAL_STYLES.COLORS.background,
             width: "100%",
           }}>
-          <Exercises />
+          <ExerciseList
+            exerciseList={exerciseList}
+            setExerciseList={setExerciseList}
+          />
         </TabView.Item>
         <TabView.Item
           style={{
@@ -109,13 +121,13 @@ export default function App() {
       </TabView>
 
       <LinearGradient
-        colors={['transparent', 'transparent', '#000000']}
+        colors={["transparent", "#000000"]}
         style={{
-          position: 'absolute',
+          position: "absolute",
           bottom: 0,
           left: 0,
-          width: '100%',
-          height: 150
+          width: "100%",
+          height: 75,
         }}
       />
 
@@ -141,7 +153,7 @@ export default function App() {
           }}
         />
         <Tab.Item
-          title="Workout"
+          title="Workouts"
           titleStyle={styles.TabItemTitle}
           containerStyle={styles.TabItemContainer}
           icon={{
@@ -155,13 +167,12 @@ export default function App() {
           titleStyle={styles.TabItemTitle}
           containerStyle={styles.TabItemContainer}
           icon={{
-            name: "cog-outline",
+            name: "options-outline",
             type: "ionicon",
             color: GLOBAL_STYLES.COLORS.text,
           }}
         />
       </Tab>
-
     </>
   );
 }
