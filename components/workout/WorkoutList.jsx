@@ -14,6 +14,7 @@ export default function WorkoutList({
   exerciseList,
 }) {
   useEffect(() => {
+    console.log("useEffect workoutList (saving Workoutlist)");
     saveWorkoutList();
   }, [workoutList]);
 

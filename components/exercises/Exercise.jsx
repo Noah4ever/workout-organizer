@@ -5,6 +5,20 @@ import Icon from "react-native-vector-icons/Ionicons";
 import ColorPicker from "react-native-wheel-color-picker";
 
 import { GLOBAL_STYLES } from "../../styles/Style";
+import ExerciseModal from "./ExerciseModal";
+
+// <View>
+//   <ColorPicker
+//     gapSize={4}
+//     color={exerciseColor.current}
+//     onColorChangeComplete={(newColor) => {
+//       exerciseColor.current = newColor;
+//     }}
+//     style={{
+//       marginTop: 0,
+//     }}
+//   />
+// </View>
 
 export default function Exercise({ exercise, exerciseIndex, updateExercise }) {
   const [visible, setVisible] = useState(false);
@@ -16,7 +30,6 @@ export default function Exercise({ exercise, exerciseIndex, updateExercise }) {
   const toggleOverlay = () => {
     setVisible(!visible);
   };
-
   return (
     <ListItem
       key={exercise.id}
@@ -26,7 +39,8 @@ export default function Exercise({ exercise, exerciseIndex, updateExercise }) {
         backgroundColor: GLOBAL_STYLES.COLORS.background,
         paddingVertical: 10,
       }}
-      onPress={toggleOverlay}>
+      onPress={toggleOverlay}
+    >
       <View
         style={{
           backgroundColor: exerciseColor.current,
@@ -36,7 +50,8 @@ export default function Exercise({ exercise, exerciseIndex, updateExercise }) {
           alignItems: "center",
           width: 50,
           height: 50,
-        }}>
+        }}
+      >
         <Icon
           name={exerciseIcon.current}
           size={24}
@@ -53,48 +68,15 @@ export default function Exercise({ exercise, exerciseIndex, updateExercise }) {
         size={24}
         color={GLOBAL_STYLES.COLORS.foreground}
       />
-      <Overlay
-        isVisible={visible}
-        onBackdropPress={toggleOverlay}
-        overlayStyle={{
-          width: 250,
-          backgroundColor: GLOBAL_STYLES.COLORS.background,
-        }}>
-        <Input
-          inputStyle={{ color: GLOBAL_STYLES.COLORS.foreground }}
-          defaultValue={exerciseName.current}
-          onChangeText={(input) => {
-            exerciseName.current = input;
-          }}
-          placeholder="Exercise name"
-        />
-        <View>
-          <ColorPicker
-            gapSize={4}
-            color={exerciseColor.current}
-            onColorChangeComplete={(newColor) => {
-              exerciseColor.current = newColor;
-            }}
-            style={{
-              marginTop: 0,
-            }}
-          />
-        </View>
-
-        <Button
-          title="Update"
-          type="clear"
-          titleStyle={{ color: GLOBAL_STYLES.COLORS.accent }}
-          onPress={() => {
-            toggleOverlay();
-            updateExercise(exerciseIndex, {
-              name: exerciseName.current,
-              color: exerciseColor.current,
-              icon: exerciseIcon.current,
-            });
-          }}
-        />
-      </Overlay>
+      <ExerciseModal
+        visible={visible}
+        toggleOverlay={toggleOverlay}
+        exerciseName={exerciseName}
+        exerciseIcon={exerciseIcon}
+        exerciseColor={exerciseColor}
+        updateExercise={updateExercise}
+        exerciseIndex={exerciseIndex}
+      />
     </ListItem>
   );
 }

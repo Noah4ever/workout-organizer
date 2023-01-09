@@ -31,21 +31,39 @@ import { GLOBAL_STYLES } from "./styles/Style";
 */
 
 export default function App() {
-  const [index, setIndex] = useState(0);
+  const [tabIndex, setIndex] = useState(0);
 
   useEffect(() => {
-    if (index < 0) {
+    // If user swipes to left in tab
+    if (tabIndex < 0) {
       setIndex(0);
-    } else if (index > 2) {
+    } else if (tabIndex > 2) {
       setIndex(3);
     }
-    loadWorkoutList();
-  }, [index]);
+    loadExerciseList(); // Load exercise list from AsyncStorage
+    loadWorkoutList(); // Load workout list from AsyncStorage
+  }, [tabIndex]);
 
+  async function loadExerciseList() {
+    try {
+      const data = await AsyncStorage.getItem("exerciseList");
+      console.log("Loaded exerciseList", data);
+      if (data === null) {
+        return false;
+      } else {
+        setExerciseList(JSON.parse(data));
+      }
+    } catch (error) {
+      console.log(
+        "Error while loading exerciselits from AsyncStorage! ERROR: ",
+        error
+      );
+    }
+  }
   async function loadWorkoutList() {
     try {
       const data = await AsyncStorage.getItem("workoutList");
-      console.log("Loaded data", data);
+      console.log("Loaded workoutList", data);
       if (data === null) {
         return false;
       } else {
@@ -58,42 +76,44 @@ export default function App() {
 
   const [workoutList, setWorkoutList] = useState(null);
 
-  const [exerciseList, setExerciseList] = useState([
-    {
-      name: "Pushup",
-      color: "#2f9fb4",
-      icon: "barbell-outline",
-      id: uuid.v4(),
-    },
-    {
-      name: "Pullup",
-      color: "#a690be",
-      icon: "barbell-outline",
-      id: uuid.v4(),
-    },
-    {
-      name: "Leg Raises",
-      color: "#7a4d4a",
-      icon: "barbell-outline",
-      id: uuid.v4(),
-    },
-  ]);
-
+  const [exerciseList, setExerciseList] = useState(null);
+  // [
+  //     {
+  //       name: "Pushup",
+  //       color: "#2f9fb4",
+  //       icon: "barbell-outline",
+  //       id: uuid.v4(),
+  //     },
+  //     {
+  //       name: "Pullup",
+  //       color: "#a690be",
+  //       icon: "barbell-outline",
+  //       id: uuid.v4(),
+  //     },
+  //     {
+  //       name: "Leg Raises",
+  //       color: "#7a4d4a",
+  //       icon: "barbell-outline",
+  //       id: uuid.v4(),
+  //     },
+  //   ]
   return (
     <>
       <StatusBar backgroundColor="#000" barStyle="light-content" />
 
       <TabView
-        value={index}
+        value={tabIndex}
         onChange={setIndex}
         animationType="timing"
         disableSwipe={true}
-        animationConfig={{ duration: 250 }}>
+        animationConfig={{ duration: 250 }}
+      >
         <TabView.Item
           style={{
             backgroundColor: GLOBAL_STYLES.COLORS.background,
             width: "100%",
-          }}>
+          }}
+        >
           <ExerciseList
             exerciseList={exerciseList}
             setExerciseList={setExerciseList}
@@ -103,7 +123,8 @@ export default function App() {
           style={{
             backgroundColor: GLOBAL_STYLES.COLORS.background,
             width: "100%",
-          }}>
+          }}
+        >
           <WorkoutList
             workoutList={workoutList}
             setWorkoutList={setWorkoutList}
@@ -115,7 +136,8 @@ export default function App() {
           style={{
             backgroundColor: GLOBAL_STYLES.COLORS.background,
             width: "100%",
-          }}>
+          }}
+        >
           <Settings />
         </TabView.Item>
       </TabView>
@@ -132,7 +154,7 @@ export default function App() {
       />
 
       <Tab
-        value={index}
+        value={tabIndex}
         onChange={(e) => setIndex(e)}
         containerStyle={{
           backgroundColor: GLOBAL_STYLES.COLORS.foreground,
@@ -141,7 +163,8 @@ export default function App() {
           backgroundColor: GLOBAL_STYLES.COLORS.accent,
           height: 3,
         }}
-        variant="default">
+        variant="default"
+      >
         <Tab.Item
           title="Exercises"
           titleStyle={styles.TabItemTitle}
