@@ -7,7 +7,7 @@ https://user-images.githubusercontent.com/66632359/211684271-f2a561b9-2547-432f-
 ## General
 - [ ] create new modern design
 
-## Workout List
+## Workouts Tab
 
 - [x] add workout for the current day
 - [x] add/select exercise to workout
@@ -20,7 +20,7 @@ https://user-images.githubusercontent.com/66632359/211684271-f2a561b9-2547-432f-
 - [ ] add changale day
 - [ ] clean up code
 
-## Exercise Management
+## Exercises Tab
 
 - [x] add new exercises
 - [ ] add icons to exercises
@@ -28,11 +28,11 @@ https://user-images.githubusercontent.com/66632359/211684271-f2a561b9-2547-432f-
 - [ ] add name to exercise
 - [x] all exercises should be saved locally
 
-## Analytics
+## Analytics (No tab yet)
 
 - [ ] add diagrams
 
-## Settings
+## Settings Tab
 
 - [ ] toggle colorscheme
 - [ ] switch language
