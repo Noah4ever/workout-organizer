@@ -20,7 +20,7 @@ import { GLOBAL_STYLES } from "./styles/Style";
  - Changeable day
  - Create custom dropdown or find better one (ReactNativeElements has one)
  - ExercisePage
-    - Create/Update/Delete exercises
+    - x Create/Update/Delete exercises
     - Add icons to exercises
  - SettingsPage
     - Color themes
@@ -106,14 +106,12 @@ export default function App() {
         onChange={setIndex}
         animationType="timing"
         disableSwipe={true}
-        animationConfig={{ duration: 250 }}
-      >
+        animationConfig={{ duration: 175 }}>
         <TabView.Item
           style={{
             backgroundColor: GLOBAL_STYLES.COLORS.background,
             width: "100%",
-          }}
-        >
+          }}>
           <ExerciseList
             exerciseList={exerciseList}
             setExerciseList={setExerciseList}
@@ -123,8 +121,7 @@ export default function App() {
           style={{
             backgroundColor: GLOBAL_STYLES.COLORS.background,
             width: "100%",
-          }}
-        >
+          }}>
           <WorkoutList
             workoutList={workoutList}
             setWorkoutList={setWorkoutList}
@@ -136,8 +133,7 @@ export default function App() {
           style={{
             backgroundColor: GLOBAL_STYLES.COLORS.background,
             width: "100%",
-          }}
-        >
+          }}>
           <Settings />
         </TabView.Item>
       </TabView>
@@ -163,8 +159,7 @@ export default function App() {
           backgroundColor: GLOBAL_STYLES.COLORS.accent,
           height: 3,
         }}
-        variant="default"
-      >
+        variant="default">
         <Tab.Item
           title="Exercises"
           titleStyle={styles.TabItemTitle}

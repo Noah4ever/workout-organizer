@@ -4,6 +4,7 @@ const COLORS = {
   text: "#0F1012",
   textMuted: "#CDD0D4",
   accent: "#28a99e",
+  danger: "#ed4a57",
   background: "#0F1012",
   foreground: "#F2F7FF",
 };

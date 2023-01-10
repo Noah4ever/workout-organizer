@@ -6,18 +6,24 @@ import cloneDeep from "lodash/cloneDeep";
 import Exercise from "./Exercise.jsx";
 import { GLOBAL_STYLES } from "../../styles/Style.js";
 
-export default function Workout({ currentWorkout, exerciseList, deleteWorkout, workoutIndex, saveWorkoutList, updateWorkout }) {
+export default function Workout({
+  currentWorkout,
+  exerciseList,
+  deleteWorkout,
+  workoutIndex,
+  saveWorkoutList,
+  updateWorkout,
+}) {
   const [workout, setWorkout] = useState(currentWorkout);
 
   useEffect(() => {
     // console.log("workout", workout);
-    updateWorkout(workoutIndex, workout)
-    saveWorkoutList()
-  }, [workout])
-
+    updateWorkout(workoutIndex, workout);
+    saveWorkoutList();
+  }, [workout]);
 
   function deleteWork() {
-    deleteWorkout(workoutIndex)
+    deleteWorkout(workoutIndex);
   }
 
   /* EXERCISE */
@@ -113,7 +119,12 @@ export default function Workout({ currentWorkout, exerciseList, deleteWorkout, w
         <Button
           onPress={deleteWork}
           type="clear"
-          icon={{ name: "trash-outline", type: "ionicon", color: "black", size: 18 }}
+          icon={{
+            name: "trash-outline",
+            type: "ionicon",
+            color: "black",
+            size: 18,
+          }}
         />
       </View>
       <View style={styles.exerciseContainer}>
@@ -145,8 +156,8 @@ export default function Workout({ currentWorkout, exerciseList, deleteWorkout, w
 
 const styles = StyleSheet.create({
   workoutDayContainer: {
-    display: 'flex',
-    flexDirection: 'row',
+    display: "flex",
+    flexDirection: "row",
     width: 150,
     borderTopLeftRadius: 3,
     borderTopRightRadius: 3,

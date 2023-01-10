@@ -71,7 +71,7 @@ export default function WorkoutList({
   }
 
   return (
-    <View style={GLOBAL_STYLES.pageContainer}>
+    <View style={[GLOBAL_STYLES.pageContainer, { paddingHorizontal: 10 }]}>
       <Text h1>Workout List</Text>
       <Button
         onPress={addWorkout}

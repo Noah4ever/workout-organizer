@@ -23,6 +23,16 @@ export default function WorkoutExercise({
   }
 
   // console.log("exercise:", exercise)
+  const selectListData = [];
+  if (exerciseList.length > 0) {
+    // All exercises from exercise list
+    exerciseList.forEach((ex) => {
+      selectListData.push({
+        key: ex.id,
+        value: ex.name,
+      });
+    });
+  }
 
   function deleteEx() {
     deleteExercise(exerciseIndex);
@@ -49,7 +59,7 @@ export default function WorkoutExercise({
               updateEx();
             }}
             defaultOption={optionDefault()}
-            data={exerciseList}
+            data={selectListData}
             placeholder={"Select exercise"}
             placeholderTextColor={"#999"}
             save="value"

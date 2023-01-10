@@ -7,25 +7,13 @@ import ColorPicker from "react-native-wheel-color-picker";
 import { GLOBAL_STYLES } from "../../styles/Style";
 import ExerciseModal from "./ExerciseModal";
 
-// <View>
-//   <ColorPicker
-//     gapSize={4}
-//     color={exerciseColor.current}
-//     onColorChangeComplete={(newColor) => {
-//       exerciseColor.current = newColor;
-//     }}
-//     style={{
-//       marginTop: 0,
-//     }}
-//   />
-// </View>
-
-export default function Exercise({ exercise, exerciseIndex, updateExercise }) {
+export default function Exercise({
+  exercise,
+  exerciseIndex,
+  updateExercise,
+  deleteExercise,
+}) {
   const [visible, setVisible] = useState(false);
-
-  const exerciseColor = useRef(exercise.color);
-  const exerciseIcon = useRef(exercise.icon);
-  const exerciseName = useRef(exercise.name);
 
   const toggleOverlay = () => {
     setVisible(!visible);
@@ -43,7 +31,7 @@ export default function Exercise({ exercise, exerciseIndex, updateExercise }) {
     >
       <View
         style={{
-          backgroundColor: exerciseColor.current,
+          backgroundColor: exercise.color,
           borderRadius: 50,
           paddingLeft: 1.5,
           justifyContent: "center",
@@ -53,14 +41,14 @@ export default function Exercise({ exercise, exerciseIndex, updateExercise }) {
         }}
       >
         <Icon
-          name={exerciseIcon.current}
+          name={exercise.icon}
           size={24}
           color={GLOBAL_STYLES.COLORS.foreground}
         />
       </View>
       <ListItem.Content>
         <ListItem.Title style={{ color: GLOBAL_STYLES.COLORS.foreground }}>
-          {exerciseName.current}
+          {exercise.name}
         </ListItem.Title>
       </ListItem.Content>
       <Icon
@@ -71,11 +59,10 @@ export default function Exercise({ exercise, exerciseIndex, updateExercise }) {
       <ExerciseModal
         visible={visible}
         toggleOverlay={toggleOverlay}
-        exerciseName={exerciseName}
-        exerciseIcon={exerciseIcon}
-        exerciseColor={exerciseColor}
         updateExercise={updateExercise}
+        deleteExercise={deleteExercise}
         exerciseIndex={exerciseIndex}
+        exercise={exercise}
       />
     </ListItem>
   );
