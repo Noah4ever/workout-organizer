@@ -28,14 +28,13 @@ export default function ExerciseModal({
       onBackdropPress={toggleOverlay}
       overlayStyle={{
         width: 250,
-        backgroundColor: GLOBAL_STYLES.COLORS.background,
-      }}
-    >
+        backgroundColor: GLOBAL_STYLES.COLORS.foreground,
+      }}>
       <ListItem containerStyle={styles.ListItemContainer}>
         <ListItem.Content>
           <Input
             inputStyle={{
-              color: GLOBAL_STYLES.COLORS.foreground,
+              color: GLOBAL_STYLES.COLORS.background,
             }}
             containerStyle={{
               marginTop: 0,
@@ -58,24 +57,14 @@ export default function ExerciseModal({
             width: 32,
             height: 32,
             borderRadius: 50,
-          }}
-        ></View>
+          }}></View>
         <ListItem.Content>
           <View>
             <Button
               title={"Change color"}
               type="clear"
               containerStyle={{}}
-              titleStyle={{ color: "white" }}
-              // iconRight
-              // icon={
-              //   <Icon
-              //     name="color-palette-outline"
-              //     style={{ marginLeft: 10 }}
-              //     color={"white"}
-              //     size={24}
-              //   />
-              // }
+              titleStyle={{ color: GLOBAL_STYLES.COLORS.background }}
               onPress={toggleColorpickerOverlay}
             />
           </View>
@@ -89,15 +78,13 @@ export default function ExerciseModal({
           width: 300,
           height: 400,
           padding: 25,
-          backgroundColor: GLOBAL_STYLES.COLORS.background,
-        }}
-      >
+          backgroundColor: GLOBAL_STYLES.COLORS.foreground,
+        }}>
         <View
           style={{
             marginTop: -30,
             height: 300,
-          }}
-        >
+          }}>
           <ColorPicker
             gapSize={4}
             color={exerciseColor.current}
@@ -152,7 +139,7 @@ export default function ExerciseModal({
 
 const styles = StyleSheet.create({
   ListItemContainer: {
-    backgroundColor: GLOBAL_STYLES.COLORS.background,
+    backgroundColor: GLOBAL_STYLES.COLORS.foreground,
     paddingVertical: 10,
   },
 });

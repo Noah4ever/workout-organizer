@@ -31,7 +31,7 @@ import { GLOBAL_STYLES } from "./styles/Style";
 */
 
 export default function App() {
-  const [tabIndex, setIndex] = useState(0);
+  const [tabIndex, setIndex] = useState(1);
 
   useEffect(() => {
     // If user swipes to left in tab

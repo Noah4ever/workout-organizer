@@ -24,11 +24,10 @@ export default function Exercise({
       topDivider={exerciseIndex === 0}
       bottomDivider={true}
       containerStyle={{
-        backgroundColor: GLOBAL_STYLES.COLORS.background,
+        backgroundColor: GLOBAL_STYLES.COLORS.foreground,
         paddingVertical: 10,
       }}
-      onPress={toggleOverlay}
-    >
+      onPress={toggleOverlay}>
       <View
         style={{
           backgroundColor: exercise.color,
@@ -36,25 +35,24 @@ export default function Exercise({
           paddingLeft: 1.5,
           justifyContent: "center",
           alignItems: "center",
-          width: 50,
-          height: 50,
-        }}
-      >
+          width: 24,
+          height: 24,
+        }}>
         <Icon
           name={exercise.icon}
-          size={24}
-          color={GLOBAL_STYLES.COLORS.foreground}
+          size={15}
+          color={GLOBAL_STYLES.COLORS.background}
         />
       </View>
       <ListItem.Content>
-        <ListItem.Title style={{ color: GLOBAL_STYLES.COLORS.foreground }}>
+        <ListItem.Title style={{ color: GLOBAL_STYLES.COLORS.background }}>
           {exercise.name}
         </ListItem.Title>
       </ListItem.Content>
       <Icon
         name="ellipsis-horizontal"
         size={24}
-        color={GLOBAL_STYLES.COLORS.foreground}
+        color={GLOBAL_STYLES.COLORS.background}
       />
       <ExerciseModal
         visible={visible}
