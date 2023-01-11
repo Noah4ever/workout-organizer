@@ -23,16 +23,29 @@ https://user-images.githubusercontent.com/66632359/211684271-f2a561b9-2547-432f-
 ## Exercises Tab
 
 - [x] add new exercises
+
+![image](https://user-images.githubusercontent.com/66632359/211764847-856631b7-67bf-44d7-9e33-dbe9e34e6fb1.png)
+
+- [x] add name to exercise
+- [x] add color to exercise
 - [ ] add icons to exercises
 - [ ] select muscle group for exercise
-- [ ] add name to exercise
+
+![image](https://user-images.githubusercontent.com/66632359/211764148-5cb8d7b9-74f5-41af-8831-3506c7fb20d9.png)
+
 - [x] all exercises should be saved locally
 
 ## Analytics (No tab yet)
 
+![image](https://user-images.githubusercontent.com/66632359/211768220-56fe2e63-8b37-4109-8c16-73c6012f14f3.png)
+
 - [ ] add diagrams
 
+
 ## Settings Tab
+
+![image](https://user-images.githubusercontent.com/66632359/211769447-a6b5daff-2638-4ba2-b95c-bfc2bed4e7de.png)
+
 
 - [ ] toggle colorscheme
 - [ ] switch language
