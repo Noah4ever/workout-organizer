@@ -29,7 +29,7 @@ https://user-images.githubusercontent.com/66632359/211684271-f2a561b9-2547-432f-
 - [x] add name to exercise
 - [x] add color to exercise
 - [ ] add icons to exercises
-- [ ] select muscle group for exercise
+- [ ] select muscle group/region for exercise
 
 ![image](https://user-images.githubusercontent.com/66632359/211764148-5cb8d7b9-74f5-41af-8831-3506c7fb20d9.png)
 
